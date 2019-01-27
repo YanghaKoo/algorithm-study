@@ -93,9 +93,98 @@ function hasword(y, x, word) {
 // 이후에 동적 계획법으로 하면 단어의 길이가 길 때도 가능하다.
 
 // ----------------------------------------------------------------------------------
-
-
-function func(n){
-  if(n<=0) return 0;  
-  else return n+func(n-1)
+// factorial
+function func(n) {
+  if (n <= 0) return 1;
+  else return n * func(n - 1);
 }
+
+// 문자열의 길이 계산
+function stringlength(string) {
+  if (string === "") return 0;
+  else return 1 + stringlength(string.substr(1));
+}
+
+// 문자열 문자 하나식 찍기
+function stringPrint(string) {
+  if (string === "") return 0;
+  else {
+    console.log(string[0]);
+    stringPrint(string.substr(1));
+  }
+}
+
+// 문자열 뒤집어서 출력 ** 다시보기~~~
+function reversePrint(string) {
+  if (string.length === 0) return;
+  else {
+    reversePrint(string.substr(1));
+    console.log(string[0]);
+  }
+}
+// reversePrint("yngha")
+
+// 2진수로 변환해서 출력하는 예
+function printBinary(n) {
+  if (n < 2) console.log(n);
+  else {
+    printBinary(n / 2);
+    console.log(n % 2);
+  }
+}
+
+// 배열의 합 구하기
+function sumArray(arr) {
+  if (arr.length === 0) return 0;
+  else {
+    return arr[arr.length - 1] + sumArray(arr.slice(0, arr.length - 1));
+  }
+}
+// console.log(sumArray([1,2,3]))
+
+// 명시적 변수로 만들기 예제
+function search(arr, begin, end, target) {
+  if (begin > end) return -1;
+  else if (target === arr[begin]) return begin;
+  else return search(arr, begin + 1, end, target);
+}
+
+function search2(arr,begin,end,target){
+  if(begin > end) return -1
+  else {
+    let middle = Math.ceil((begin+end) / 2)
+    if(arr[middle] === target) return middle
+
+    let index = search(arr, begin, middle-1, target)
+    if(index !== -1) return index
+    else search(arr, middle+1, end, target)
+  }
+}
+
+
+// 배열의 데이터들 중 최대값 찾기
+function findMax(arr, begin, end){
+  if(begin === end) return arr[begin]
+  else {
+    return Math.max(arr[begin], findMax(arr, begin +1, end))
+  }
+}
+
+
+// *************************이진검색********************************************
+// 이진검색은 배열이 오름차순으로 정려로디어 있다고 가정하고 시작이니깐
+function binarySearch(arr,target, begin, end){
+  if(begin > end ) return -1
+  else{
+    let middle = Math.floor((begin + end)/ 2) // 2
+    if(arr[middle] === target) return middle
+
+    else if(arr[middle] > target){
+      return binarySearch(arr,target, begin, middle-1)
+    }else{
+      return binarySearch(arr, target, middle+1, end)
+    }
+  }
+}
+
+console.log(binarySearch([1,2,3,   4   ,5], 4, 0, 4))
