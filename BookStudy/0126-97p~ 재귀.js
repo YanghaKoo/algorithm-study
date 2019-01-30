@@ -149,42 +149,71 @@ function search(arr, begin, end, target) {
   else return search(arr, begin + 1, end, target);
 }
 
-function search2(arr,begin,end,target){
-  if(begin > end) return -1
+function search2(arr, begin, end, target) {
+  if (begin > end) return -1;
   else {
-    let middle = Math.ceil((begin+end) / 2)
-    if(arr[middle] === target) return middle
+    let middle = Math.ceil((begin + end) / 2);
+    if (arr[middle] === target) return middle;
 
-    let index = search(arr, begin, middle-1, target)
-    if(index !== -1) return index
-    else search(arr, middle+1, end, target)
+    let index = search(arr, begin, middle - 1, target);
+    if (index !== -1) return index;
+    else search(arr, middle + 1, end, target);
   }
 }
-
 
 // 배열의 데이터들 중 최대값 찾기
-function findMax(arr, begin, end){
-  if(begin === end) return arr[begin]
+function findMax(arr, begin, end) {
+  if (begin === end) return arr[begin];
   else {
-    return Math.max(arr[begin], findMax(arr, begin +1, end))
+    return Math.max(arr[begin], findMax(arr, begin + 1, end));
   }
 }
-
 
 // *************************이진검색********************************************
 // 이진검색은 배열이 오름차순으로 정려로디어 있다고 가정하고 시작이니깐
-function binarySearch(arr,target, begin, end){
-  if(begin > end ) return -1
-  else{
-    let middle = Math.floor((begin + end)/ 2) // 2
-    if(arr[middle] === target) return middle
-
-    else if(arr[middle] > target){
-      return binarySearch(arr,target, begin, middle-1)
-    }else{
-      return binarySearch(arr, target, middle+1, end)
+function binarySearch(arr, target, begin, end) {
+  if (begin > end) return -1;
+  else {
+    let middle = Math.floor((begin + end) / 2); // 2
+    if (arr[middle] === target) return middle;
+    else if (arr[middle] > target) {
+      return binarySearch(arr, target, begin, middle - 1);
+    } else {
+      return binarySearch(arr, target, middle + 1, end);
     }
   }
 }
 
-console.log(binarySearch([1,2,3,   4   ,5], 4, 0, 4))
+// console.log(binarySearch([1,2,3,   4   ,5], 4, 0, 4))
+
+//  미로찾기 문제!!!! MAZE
+
+const maze = [
+  [0, 0, 0, 0, 0, 0, 0, 1],
+  [0, 1, 1, 0, 1, 1, 0, 1],
+  [0, 0, 0, 1, 0, 0, 0, 1],
+  [0, 1, 0, 0, 1, 1, 0, 0],
+  [0, 1, 1, 1, 0, 0, 1, 1],
+  [0, 1, 0, 0, 0, 1, 0, 1],
+  [0, 0, 0, 1, 0, 0, 0, 1],
+  [0, 1, 1, 1, 0, 1, 0, 0]
+];
+
+// 시작지점 x,y를 넣음
+function mazeEscape(x, y) {
+  // 좌표가 벽인 경우
+  if (x < 0 || y < 0 || x >= 8 || y >= 8) return false;
+  else if (maze[x][y] !== 0) return false;      // 흰색 벽이 아닌 경우 바로 return false
+  else if (x === 7 && y === 7) {
+    maze[x][y] = "RIGHT PATH";
+    return true;
+  } else {
+    // 그냥 일반적인 경우
+    maze[x][y] = "RIGHT PATH"
+    if(mazeEscape(x-1,y) || mazeEscape(x, y+1) || mazeEscape(x+1,y) || mazeEscape(x,y-1) )  return true
+    maze[x][y] = "DEAD END"
+    return false
+  }
+}
+
+console.log(mazeEscape(0, 0));
