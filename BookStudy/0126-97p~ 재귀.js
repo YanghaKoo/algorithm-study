@@ -203,17 +203,138 @@ const maze = [
 function mazeEscape(x, y) {
   // 좌표가 벽인 경우
   if (x < 0 || y < 0 || x >= 8 || y >= 8) return false;
-  else if (maze[x][y] !== 0) return false;      // 흰색 벽이 아닌 경우 바로 return false
+  else if (maze[x][y] !== 0) return false;
+  // 흰색 벽이 아닌 경우 바로 return false
   else if (x === 7 && y === 7) {
     maze[x][y] = "RIGHT PATH";
     return true;
   } else {
     // 그냥 일반적인 경우
-    maze[x][y] = "RIGHT PATH"
-    if(mazeEscape(x-1,y) || mazeEscape(x, y+1) || mazeEscape(x+1,y) || mazeEscape(x,y-1) )  return true
-    maze[x][y] = "DEAD END"
-    return false
+    maze[x][y] = "RIGHT PATH";
+    if (
+      mazeEscape(x - 1, y) ||
+      mazeEscape(x, y + 1) ||
+      mazeEscape(x + 1, y) ||
+      mazeEscape(x, y - 1)
+    )
+      return true;
+    maze[x][y] = "DEAD END";
+    return false;
+  }
+}
+// console.log(mazeEscape(0, 0));
+
+// Counting cells in a blob 문제
+// 연결된 이미지 픽셀을 blob이라고 함
+const blobs = [
+  [1, 0, 0, 0, 0, 0, 0, 1],
+  [0, 1, 1, 0, 0, 1, 0, 0],
+  [1, 1, 0, 0, 1, 0, 1, 0],
+  [0, 0, 0, 0, 0, 1, 0, 0],
+  [0, 1, 0, 1, 0, 1, 0, 0],
+  [0, 1, 0, 1, 0, 1, 0, 0],
+  [1, 0, 0, 0, 1, 0, 0, 1],
+  [0, 1, 1, 0, 0, 1, 1, 1]
+];
+
+let xpos = [-1, 0, 1, -1, 1, -1, 0, 1];
+let ypos = [1, 1, 1, 0, 0, -1, -1, -1];
+
+// 내 풀이
+let count = 0;
+function myCountingBlob(x, y) {
+  if (x < 0 || y < 0 || x >= 8 || y >= 8) return false;
+  else if (blobs[x][y] !== 1) return false;
+  else {
+    blobs[x][y] = 2; // 일단 본 블럭 체크
+
+    for (let i = 0; i < 8; i++) {
+      const nextX = x + xpos[i];
+      const nextY = y + ypos[i];
+      if (
+        nextX >= 0 &&
+        nextY >= 0 &&
+        nextX < 8 &&
+        nextY < 8 &&
+        blobs[nextX][nextY] === 1
+      )
+        myCountingBlob(nextX, nextY);
+    }
+    count++;
+  }
+  return count;
+}
+// console.log(myCountingBlob(5,3))
+
+// 정답 풀이
+function answerCountingblob(x, y) {
+  if (x < 0 || y < 0 || x >= 8 || y >= 8) return 0;
+  else if (blobs[x][y] !== 1) return 0;
+  else {
+    blobs[x][y] = 2;
+    let ans = 0;
+    for (let i = 0; i < 8; i++) {
+      ans += answerCountingblob(x + xpos[i], y + ypos[i]);
+    }
+    return 1 + ans;
   }
 }
 
-console.log(mazeEscape(0, 0));
+// console.log(answerCountingblob(5,3))
+
+
+
+
+
+
+
+
+// N queens problem
+const N = 4; // 4*4  체스 배열
+let cols = new Array(10).fill(0);
+
+function promising(level) {
+  for (let i = 0; i < level; i++) {
+    if (cols[i] !== 0 && cols[level] !== 0 && cols[i] === cols[level]) {
+      // console.log("same row");
+      return false;
+    } else if (level - i === Math.abs(cols[level] - cols[i])) {
+      // console.log("대각선 걸림");
+      return false;
+    }
+  }
+  return true;
+}
+
+function printCols() {
+  for (let i = 1; i <= N; i++) console.log(cols[i]);
+  console.log("");
+}
+
+function queens(level) {
+  // level은 depth의 의미
+  printCols()
+
+  if (!promising(level)) {
+    // console.log("not promising");
+    return false;
+  } else if (level === N) return true;
+
+  // 최종 정답도 아니고, 실패도 아닐 때, 재귀 수행  
+
+  for (let i = 1; i <= N; i++) {
+    cols[level + 1] = i;
+    if (queens(level + 1)) return true;
+  }
+  return false;
+}
+
+console.log(queens(0));
+
+
+
+
+
+
+// 멱집합 구하기
+
