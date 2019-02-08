@@ -77,8 +77,8 @@ function partition(arr,p,r){
   let i = p -1
   for(let j=p; j<r; j++){
     if(arr[j] <= pivot) {
-      i++
-      
+      i++      
+
       // 현재위치 (arr[j])가 pivot 보다 작을떄 swap 시켜줘야지
       let tmp = arr[i]
       arr[i] = arr[j]
@@ -103,4 +103,27 @@ function quickSort(arr, p, r){
   }
   return arr
 }
-console.log(quickSort([1,5,2,3,5,7,8], 0, 6))
+
+// console.log(quickSort([1,5,2,3,5,7,8], 0, 6))
+
+  // 히피파이는 루트(i)를 제외한 자식들이 heap을 만족한다고 가정했을때 진행
+
+  // function maxHeapify(arr, i){
+  //   if 노드 arr[i]의 자식이 존재하지 않는다면 return
+  //   k = 자식이 있다면 둘 중 더 큰걸 k라고 지정
+  //   if arr[i] >= arr[k] return 
+
+  //   exchange arr[i] and arr[k]
+  //   maxHeapify(arr, k)
+  // }
+
+
+
+function heapSort(){
+
+
+}
+
+// console.log(heapSort([1,100,123,1,233,2,323,23,123,65])     )
+
+// 최대 우선순위 큐
