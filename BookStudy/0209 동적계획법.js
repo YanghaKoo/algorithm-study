@@ -66,3 +66,98 @@ function binomial3(n,k){
     }
   }
 }
+
+
+
+// 행렬 경로 문제
+// 0,0에서 오른쪽이나 아래로만 가는데 합이 최소가 되게 3,3으로 가는 경로구하기
+const problem = [
+  [6,7,12,5],
+  [5,3,11,18],
+  [7,17,3,3],
+  [8,10,14,9]
+]
+
+ const _answer = [[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1]]
+
+ // 내풀이, 메모라이제이션 방법
+function mySolution(problem, x, y){
+  if(_answer[x][y] !== -1) return _answer[x][y]
+  if(x === 0 && y ===0) return problem[x][y];
+  else if(x === 0) {
+    let answer = 0;
+    for(let i=0; i<=y; i++){
+      answer += problem[0][i]
+      _answer[0][i] = answer
+      
+    }
+    return answer
+
+  }else if(y=== 0){
+    let answer = 0;
+    for(let i=0; i<=x; i++){
+      answer += problem[i][0]
+      _answer[i][0] = answer                
+    }
+    return answer
+  }else{
+    _answer[x][y] = problem[x][y] + Math.min(mySolution(problem,x-1,y), +mySolution(problem,x,y-1))
+    return _answer[x][y]
+  }
+}
+
+// console.log(mySolution(problem, 3, 2))
+// console.log(_answer)
+
+
+// 혹은 바텀업 방식으로 할 수 있는데
+// 이걸 0,0 0,1, 0,2 0,3, 1,1, 1,2, ... 이순서대로 올라가면 바텀업이 가능함
+// i가 행, j가 열이라면
+// 항상 먼저계산되기 때문에... 
+// 시간복잡도는 포문 2개도니까 O(n^2)이지
+function solution(problem){
+  for(let i=0; i<= 3; i++){
+    for(let j=0; j<=3; j++){
+      if(i===0 && j ===0) _answer[i][j] = problem[i][j]
+      else if(i===0){
+        _answer[i][j] = _answer[i][j-1] + problem[i][j]
+      }else if(j===0){
+        _answer[i][j] = _answer[i-1][j] + problem[i][j]
+      }else{
+        _answer[i][j] = Math.min(_answer[i-1][j], _answer[i][j-1]) + problem[i][j]
+      }
+    }    
+  }
+  return _answer[3][3]
+}
+
+// console.log(solution(problem))
+// console.log(_answer)
+
+/*
+  동적계획법에 대해 이런저런 얘기를 했는데, 본질적인 얘기를 할 것임
+  이번시간에는 optimal structure 
+  
+  기본적으로 순환식을 계산의 중복없이 푸는 방법
+  
+  보통 동적계획법은 아래 문제들을 푸는 테크닉이다.
+  최적화문제(optimization problem)  - 최대값 / 최소값을 구하는 것
+  카운팅(counting problem)-  조건을 만족하는 해의 개수를 구하는 문제
+
+  먼저 순환식을 세우고, 그 다음에 그 순환식을 계산의 중복 없이 풀게 하는 법임
+  순환식을 세우는 부분이 가장 어려운 부분임
+
+   s v u 가 있을대
+   s에서 u까지 가는 최적해를 구하는데 
+   s에서 v까지 가는 길이 s~v까지 가는 최단거리의 최적해인가? 이런 질문을 하는걸로 최적해를 구하는게 시작됨
+
+   순환식을 세우는 요령 : 
+    최적해의 일부분이 그 질분에 대한 최적해인가? 
+ */
+
+
+// Matrix-chain Multiplication 문제
+
+
+
+
