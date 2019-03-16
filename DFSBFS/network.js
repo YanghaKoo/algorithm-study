@@ -29,6 +29,7 @@ function solution(n, computers) {
         }
       });
     }
+    
     // 두번재 while문이 끝나면 하나의 connected graph가 만들어 졌단 것이므로 문제의 내용인 네트워크가 생긴것 ==> 답에 +1 해주고 다시 첫번째 while문으로 돌아가
     answer++
   }
