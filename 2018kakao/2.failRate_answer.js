@@ -11,10 +11,12 @@ function solution(N, stages) {
       }
   })
 
+      // obj ===  { '1': 1, '2': 3, '3': 2, '4': 1, '5': 0 }
   // 계산
   let stay = 0;
   let stayed = stages.length;
   const failPercentageArr = [];
+  
   for(let key in obj) {
       stay = obj[key];
       console.log(stay, '/', stayed);
@@ -25,7 +27,8 @@ function solution(N, stages) {
       }
       stayed = stayed - stay;
   }
-
+  
+  
   // 정렬
   failPercentageArr.sort((a,b) => {
       if (b.fail > a.fail) {
@@ -41,3 +44,5 @@ function solution(N, stages) {
       return Number(v.stage);
   })
 }
+
+console.log(solution(5,[2, 1, 2, 6, 2, 4, 3, 3]))
