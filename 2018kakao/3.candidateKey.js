@@ -1,7 +1,9 @@
 function solution(relation) {
   
   
-
+  function getColumn(){
+    
+  }
 
   
   
@@ -18,5 +20,5 @@ console.log(solution([
   ["500", "muzi", "music", "3"],
   ["600", "apeach", "music", "2"]
 ]));         // 2
-
+ 
 
