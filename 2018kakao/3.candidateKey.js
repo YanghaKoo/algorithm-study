@@ -1,10 +1,6 @@
 function solution(relation) {
   
   
-  function getColumn(){
-    
-  }
-
   
   
    
