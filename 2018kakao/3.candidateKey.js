@@ -1,3 +1,5 @@
+// 카카오 3번 후보키 문제
+
 function solution(relation) {
   
   
