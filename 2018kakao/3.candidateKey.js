@@ -4,29 +4,30 @@ function solution(relation) {
   function hasDuplicates(array) {
     return new Set(array).size !== array.length;
   }
+  let answer = 0;
 
-  
   const rLength = relation.length; // 6
   const cLength = relation[0].length; // 4
 
-  const newArr = new Array(cLength).fill(0).map(v=>[]);
-
+  const newArr = new Array(cLength).fill(0).map(v => []);
 
   for (let i = 0; i < rLength; i++) {
     for (let j = 0; j < cLength; j++) {
-      
       newArr[j].push(relation[i][j]);
-      console.log(relation[i][j])
-      
     }
   }
 
-  console.log(newArr);
+  
+  
+  // 하나의 경우
+  newArr.forEach(arr => {
+    if (!hasDuplicates(arr)) {
+      answer++;
+    }
+  });
 
-  return 'end'
+  return answer;
 }
-
-
 
 // 최대길이 20 row
 console.log(
