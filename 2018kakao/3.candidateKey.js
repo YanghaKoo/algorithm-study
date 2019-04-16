@@ -17,7 +17,7 @@ function solution(relation) {
     }
   }
 
-  
+   
   
   // 하나의 경우
   newArr.forEach(arr => {
