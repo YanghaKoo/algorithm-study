@@ -1,5 +1,5 @@
-// 카카오 3번 후보키 문제
-
+// 카카오 3번 후보키 문제   
+  
 function solution(relation) {
   function hasDuplicates(array) {
     return new Set(array).size !== array.length;
@@ -17,7 +17,6 @@ function solution(relation) {
     }
   }
 
-   
   
   // 하나의 경우
   newArr.forEach(arr => {
