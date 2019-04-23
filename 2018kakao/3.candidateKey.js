@@ -28,7 +28,7 @@ function solution(relation) {
   return answer;
 }
 
-// 최대길이 20 row
+// 최대길이 20 row      
 console.log(
   solution([
     ["100", "ryan", "music", "2"],
