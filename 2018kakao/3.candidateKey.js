@@ -8,7 +8,7 @@ function solution(relation) {
 
   const rLength = relation.length; // 6
   const cLength = relation[0].length; // 4
-
+ 
   const newArr = new Array(cLength).fill(0).map(v => []);
 
   for (let i = 0; i < rLength; i++) {
@@ -37,5 +37,6 @@ console.log(
     ["400", "con", "computer", "4"],
     ["500", "muzi", "music", "3"],
     ["600", "apeach", "music", "2"]
+    
   ])
 ); // 2
