@@ -1,17 +1,17 @@
-function solution(string){
-  let answer = 0
-  let length = string.length // 4
+// 아스키 코드값 보기, 문자열.charCodeAt(idx)
 
-  for(let i=0; i<string.length; i++){
-    answer += Number(string[i]) * Math.pow(2,length - i -1)
+function solution(str1, str2) {
+  if(str1.length > str2.length) return -1
+  else if(str1.length < str2.length) return 1
+
+  for (let i = 0; i < str1.length; i++) {
+    if (str1.charCodeAt(i) === str2.charCodeAt(i)) continue;
+    else return str1.charCodeAt(i) - str2.charCodeAt(i);
   }
-  return answer
+  return 0;
 }
 
-console.log(solution("1011")) // r
-
-
-
+console.log(solution("abc", "abcd")); // 음수 값
 
 
 
@@ -23,17 +23,16 @@ console.log(solution("1011")) // r
 
 
 // const readline=require("readline");
- 
+
 // const rl =readline.createInterface({
 //   input:process.stdin,
 //   output:process.stdout
 // });
- 
+
 // rl.setPrompt("## ");
- 
+
 // rl.prompt();
 // rl.on("line",(data)=>{
 //   console.log(data);
 //   rl.prompt();
 // });
- 
