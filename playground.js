@@ -1,25 +1,42 @@
-// 아스키 코드값 보기, 문자열.charCodeAt(idx)
+function convert(param){
+  const stack = []
+  const priority = { '+' : 2, '-' : 2, "*" : 1, "/" : 1, '(' : 0}
+  let answer = ''
 
-function solution(str1, str2) {
-  if(str1.length > str2.length) return -1
-  else if(str1.length < str2.length) return 1
+  for(let i =0; i<param.length; i++){
+  
+    if(param[i] === "+" || param[i] === "+" || param[i] === "*" || param[i] === "/"){
+      
 
-  for (let i = 0; i < str1.length; i++) {
-    if (str1.charCodeAt(i) === str2.charCodeAt(i)) continue;
-    else return str1.charCodeAt(i) - str2.charCodeAt(i);
+      stack.push(param[i])
+
+    }else if(param[i] === '('){
+      stack.push(param[i])
+
+
+    }else if(param[i] === ')'){
+      while(stack.pop() !== '('){
+        answer += param[i]        
+      }  
+    
+    }
+    else{
+      answer += param[i]
+
+    }
+
+
+
+
+
   }
-  return 0;
+
+
+  return answer
 }
 
-console.log(solution("abc", "abcd")); // 음수 값
 
-
-
-
-
-
-
-
+console.log(convert("(a+b-c)*d*e"))
 
 
 // const readline=require("readline");
